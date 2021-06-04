@@ -17,3 +17,4 @@ notebooks/.local/
 notebooks/.bash_history
 notebooks/.python_history
 .env
+.Rproj.user
