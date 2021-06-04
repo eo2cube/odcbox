@@ -1,4 +1,10 @@
-# Cube in a Box
+# `odc_box`
+
+*Open Data Cube* docker install serving a Jupyter notebook environment running Python and R kernels
+
+*This project is based on https://github.com/opendatacube/cube-in-a-box and serves as the basis for the development environment of an R client for the OpenDataCube. It adds and R kernel to the jupyter environment and some upstream dependencies. See the commit history for changes to the original repository.*
+
+**Original README.md:**
 
 The Cube in a Box is a simple way to run the [Open Data Cube](https://www.opendatacube.org).
  
