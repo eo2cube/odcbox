@@ -3,12 +3,15 @@ FROM opendatacube/geobase:wheels-3.0.4  as env_builder
 
 ARG py_env_path=/env
 
+# config rpy2 mode
 ENV RPY2_CFFI_MODE=ABI
 
+# install required python libraries
 RUN mkdir -p /conf
 COPY requirements.txt /conf/
 RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
 
+# install ODC
 FROM opendatacube/geobase:runner-3.0.4
 ARG py_env_path=/env
 
@@ -23,8 +26,7 @@ RUN useradd -m -s /bin/bash -N jovyan -g 100 -u 1000 \
 	&& chown jovyan /home/jovyan \
 	&& addgroup jovyan staff
 
-# R kernel install
-
+# install R kernel
 RUN apt-get update \
 	&& apt-get install -y --no-install-recommends \
 		software-properties-common \
@@ -69,9 +71,12 @@ RUN apt-get update \
  	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
  	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update&&apt-get install -y --no-install-recommends r-cran-reticulate libudunits2-dev sqlite3
+RUN apt-get update&&apt-get install -y --no-install-recommends libudunits2-dev libgdal-dev libgeos-dev r-cran-reticulate #libproj-dev
+
 RUN R -e 'install.packages(c("IRkernel", "rgdal", "sf", "stars", "raster", "basemaps"))' 
 #,  "raster", "sp", "sf", "stars", "basemaps", "mapview", "mapedit", "devtools", "usethis", "testthat", "roxygen2", "ggplot2"))'
+
+# configure R kernel for Jupyter
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
 USER jovyan
