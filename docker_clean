@@ -1,7 +1,2 @@
 #!/bin/bash
-docker system prune
-docker image prune
-docker volume rm $(docker volume ls -q -f 'dangling=true')
 docker-compose down -v --rmi all --remove-orphans
-
-

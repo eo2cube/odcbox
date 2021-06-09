@@ -18,15 +18,15 @@ and `cd` into its main directory. To start the container (and build it the first
 sudo ./docker_start
 ```
 
-To initialize the jupyter environment and pull Sentinel-2A example data, in another shell run the following command and wait for its completion:
+To initialize the jupyter environment and pull Sentinel-2A example data, open a new shell and run:
 
 ```
 sudo ./docker_init
 ```
 
-You may now access your local Jupyter environment in a browser on your host machine under [http://localhost](http://localhost). Use the password `secretpassword` to authenticate.
+Wait for its completion. You may then now access your local Jupyter environment in a browser on your host machine under [http://localhost](http://localhost). Use the password `secretpassword` to authenticate.
 
-see the notebook `Sentinel_2.ipynb` for examples. Note that you can index additional areas using the `Indexing_More_Data.ipynb` notebook.
+See the notebook `Sentinel_2.ipynb` for examples. Note that you can index additional areas using the `Indexing_More_Data.ipynb` notebook.
 
 To stop the container, from a shell other then the one the docker container is running in, run:
 
@@ -34,13 +34,13 @@ To stop the container, from a shell other then the one the docker container is r
 sudo ./docker_stop
 ```
 
-To fully clean your docker environemnt from containers, images and volumes created for `odc_box` and to allow a fresh re-deploy, run
+To fully clean your docker environment from images pulled for `odc_box` and to allow a fresh re-deploy, run
 
 ```
 sudo ./docker_clean
 ```
 
-before starting over.
+before starting over. Note that with each re-deploy, a new docker volume is created containing your indexed data. You may want to prune your docker volumes from time to time, e.g. using `sudo docker volume rm $(sudo docker volume ls -q -f 'dangling=true')`. Note that this will remove **all** docker volumes, also those from other docker instances that might be running on your host system.
 
 
 ## Troubleshooting
