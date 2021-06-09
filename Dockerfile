@@ -3,6 +3,8 @@ FROM opendatacube/geobase:wheels-3.0.4  as env_builder
 
 ARG py_env_path=/env
 
+ENV RPY2_CFFI_MODE=ABI
+
 RUN mkdir -p /conf
 COPY requirements.txt /conf/
 RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
@@ -67,8 +69,9 @@ RUN apt-get update \
  	&& rm -rf /tmp/downloaded_packages/ /tmp/*.rds \
  	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update&&apt-get install -y --no-install-recommends r-cran-reticulate
-RUN R -e 'install.packages("IRkernel")'
+RUN apt-get update&&apt-get install -y --no-install-recommends r-cran-reticulate libudunits2-dev sqlite3
+RUN R -e 'install.packages(c("IRkernel", "rgdal", "sf", "stars", "raster", "basemaps"))' 
+#,  "raster", "sp", "sf", "stars", "basemaps", "mapview", "mapedit", "devtools", "usethis", "testthat", "roxygen2", "ggplot2"))'
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
 USER jovyan

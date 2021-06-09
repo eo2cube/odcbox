@@ -29,3 +29,4 @@ scikit-image
 tqdm
 click<8.0.0
 dataclasses
+rpy2

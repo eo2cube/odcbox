@@ -22,6 +22,7 @@ services:
       - STAC_API_URL=https://earth-search.aws.element84.com/v0/
     ports:
       - "80:8888"
+    user: root
     volumes:
       - ./notebooks:/notebooks
     restart: always
