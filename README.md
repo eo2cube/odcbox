@@ -1,51 +1,61 @@
 # `odc_box`
 
-*Open Data Cube* docker install serving a Jupyter notebook environment running a Python kernel and an R kernel with a dedicated R interface that ports `datacube` for Python to R
+This repository hosts all you need to install an *Open Data Cube* instance as a docker container that serves a Jupyter notebook environment running a Python kernel and an R kernel. It is based on the [Cube-in-a-box](https://github.com/opendatacube/cube-in-a-box) project. The changes and additions include (i) a revised `Dockerfile`, adding instructions to install R, its upstream dependencies and connect it with the Jupyter environment, (ii) helper scripts for quick re-deploys of the container environment, (iii) a revised `README.md` and (iv) additional Python dependencies. See the commit history for all changes to the original repository.
 
-*This project is based on https://github.com/opendatacube/cube-in-a-box and serves as the basis for the development environment of an R client for the OpenDataCube. It adds and R kernel to the jupyter environment and some upstream dependencies. See the commit history for changes to the original repository.*
+## Installation
 
-**Original README.md:**
+Make sure to have [`docker`](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) and [`docker-compose`](https://docs.docker.com/compose/install/#install-compose-on-linux-systems) installed on your host system.
 
-The Cube in a Box is a simple way to run the [Open Data Cube](https://www.opendatacube.org).
- 
-## How to use:
-_If you have `make` installed you can use it to save some typing using the instructions a little further down._
+Clone this repository to a directory of your choice, e.g. using
 
-All you need to know:
+```
+git clone https://github.com/16EAGLE/odc_box/
+```
 
-* Start a local environment: `docker-compose up`
-* Set up your local postgres database (after the above has finished) using:
-  * `docker-compose exec jupyter datacube -v system init`
-  * `docker-compose exec jupyter datacube product add https://raw.githubusercontent.com/digitalearthafrica/config/master/products/esa_s2_l2a.odc-product.yaml`
-* Index a default region with either:
-  * `docker-compose exec jupyter bash -c "stac-to-dc --bbox='25,20,35,30' --collections='sentinel-s2-l2a-cogs' --datetime='2020-01-01/2020-03-31' s2_l2a"`
-* Shutdown your local environment:
-* `docker-compose down`
+and `cd` into its main directory. To start the container (and build it the first time), run:
 
-If you have `make`:
+```
+sudo ./docker_start
+```
 
-* Start a local environment using `make up`
-* Set up your local postgres database (after the above has finished) using `make init`
-* Add the Sentinel-2 product definition `make product`
-* Index a default region with `make index`
-  * (optional) Edit the Makefile to change the region of interest
+To initialize the jupyter environment and pull Sentinel-2A example data, in another shell run the following command and wait for its completion:
 
-View the Jupyter notebook `Sentinel_2.ipynb` at [http://localhost](http://localhost) using the password `secretpassword`. Note that you can index additional areas using the `Indexing_More_Data.ipynb` notebook.
+```
+sudo ./docker_init
+```
 
-## Deploying to AWS
+You may now access your local Jupyter environment in a browser on your host machine under [http://localhost](http://localhost). Use the password `secretpassword` to authenticate.
 
-To deploy to AWS, you can either do it on the command line, with the AWS command line installed or the magic URL below and the AWS console. Detailed instructions are [available](docs/Detailed_Install.md).
+see the notebook `Sentinel_2.ipynb` for examples. Note that you can index additional areas using the `Indexing_More_Data.ipynb` notebook.
 
-Once deployed, if you navigate to the IP of the deployed instance, you can access Jupyter with the password you set in the parameters.json file or in the AWS UI if you used the magic URL.
+To stop the container, from a shell other then the one the docker container is running in, run:
 
-### Magic link
+```
+sudo ./docker_stop
+```
 
-[Launch a Cube in a Box](https://console.aws.amazon.com/cloudformation/home?#/stacks/new?stackName=cube-in-a-box&templateURL=http://opendatacube-cube-in-a-box.s3.amazonaws.com/cube-in-a-box-cloudformation.yml)
+To fully clean your docker environemnt from containers, images and volumes created for `odc_box` and to allow a fresh re-deploy, run
 
-You need to be logged in to the AWS Console deploy using this URL. Once logged in, click the link, and follow the prompts including settings a bounding box region of interest, EC2 instance type and password for Jupyter.
+```
+sudo ./docker_clean
+```
 
-### Command line
+before starting over.
 
-* Alter the parameters in the [parameters.json](./parameters.json) file
-* Run `make create-infra`
-* If you want to change the stack, you can do `make update-infra` (although it may be cleaner to delete and re-create the stack)
+
+## Troubleshooting
+
+**Occupied TCP port**
+
+Error message:
+
+```
+sudo ./docker_start
+#> ERROR: for postgres  Cannot start service postgres: driver failed programming external connectivity on endpoint odc_box_postgres_1 (...): Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use
+```
+
+Reason: The default `postgres` port `5432` seems to be used by some service (maybe `postgres`?) running on your host system.
+
+Solution: Check whether this is true by running `sudo lsof -i :5432`. You may want to kill the processes that are displayed using their associated PIDs with `kill <PID>`.
+
+
