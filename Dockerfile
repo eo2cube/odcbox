@@ -5,11 +5,12 @@ ARG py_env_path=/env
 # set rpy2 to ABI mode, since R is installed after rpy2
 ENV RPY2_CFFI_MODE=ABI
 
-# install python dependencies
+# install required python libraries
 RUN mkdir -p /conf
 COPY requirements.txt /conf/
 RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
 
+# install ODC
 FROM opendatacube/geobase:runner-3.0.4
 ARG py_env_path=/env
 
