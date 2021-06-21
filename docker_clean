@@ -1,2 +1,3 @@
 #!/bin/bash
+docker volume rm $(docker volume ls -q -f 'dangling=true')
 docker-compose down -v --rmi all --remove-orphans
