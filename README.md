@@ -6,7 +6,7 @@ This repository hosts all you need to install an *Open Data Cube* instance as a 
 
 * an R kernel and its upstream dependencies, initialized to connect with the Jupyter environment,
 * a pre-installed suite of R packages for spatial analysis as well as there system requirements
-* helper scripts for quick starting, stoping and re-deploying of the container environment (see below),
+* helper scripts for quick starting, stopping and re-deploying of the container environment (see below),
 * a revised `README.md` with installation instructions
 
 See the commit history for all changes to the original repository.
