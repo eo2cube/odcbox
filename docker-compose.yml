@@ -10,8 +10,8 @@ services:
     ports:
       - 5432:5432
     restart: always
-  
-  jupyter:
+
+  odcenv:
     build: .
     environment:
       - DB_HOSTNAME=postgres
@@ -22,6 +22,7 @@ services:
       - STAC_API_URL=https://earth-search.aws.element84.com/v0/
     ports:
       - "80:8888"
+      #- "8787:8787"
     user: root
     volumes:
       - ./notebooks:/notebooks

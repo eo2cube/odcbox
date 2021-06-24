@@ -1,4 +1,5 @@
 FROM ubuntu:focal
+
 FROM opendatacube/geobase:wheels-3.0.4  as env_builder
 ARG py_env_path=/env
 
@@ -8,7 +9,7 @@ ENV RPY2_CFFI_MODE=ABI
 # install required python libraries
 RUN mkdir -p /conf
 COPY requirements.txt /conf/
-RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
+  RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
 
 # install ODC
 FROM opendatacube/geobase:runner-3.0.4
@@ -19,11 +20,11 @@ COPY --from=env_builder /bin/tini /bin/tini
 
 RUN export GDAL_DATA=$(gdal-config --datadir)
 ENV LC_ALL=C.UTF-8 \
-    PATH="/env/bin:$PATH"
+PATH="/env/bin:$PATH"
 
 RUN useradd -m -s /bin/bash -N jovyan -g 100 -u 1000 \
-	&& chown jovyan /home/jovyan \
-	&& addgroup jovyan staff
+&& chown jovyan /home/jovyan \
+&& addgroup jovyan staff
 
 # install R dependencies
 RUN apt-get update \
@@ -75,14 +76,21 @@ RUN apt-get update&&apt-get install -y --no-install-recommends r-cran-reticulate
 
 # install R packages
 RUN R -e 'install.packages(c("IRkernel", "rgdal", "sp", "raster", "sf", "basemaps", "ggplot2", "mapview", "mapedit", "devtools", "usethis", "testthat", "roxygen2"))'
+RUN R -e 'install.packages(c("IRkernel"))'
 
 # initiliaze R kernel for Jupyter
 RUN R -e "IRkernel::installspec(user = FALSE)"
+
+## automatically link a shared volume for kitematic users
+VOLUME /home/rstudio/kitematic
 
 # set user and working dir
 USER jovyan
 WORKDIR /notebooks
 
-ENTRYPOINT ["/bin/tini", "--"]
+#CMD bash -c " && rstudio-server start"
+#RUN "/init"
 
+ENTRYPOINT ["/bin/tini", "--"] # "entrypoint.sh"
 CMD ["jupyter", "notebook", "--allow-root", "--ip='0.0.0.0'" "--NotebookApp.token='secretpassword'"]
+#CMD ["rstudio-server start"]
