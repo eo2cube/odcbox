@@ -71,11 +71,12 @@ RUN apt-get update \
 # install system dependencies for suite of spatial R packages
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update&&apt-get install -y apt-utils pkg-config
-RUN apt-get install -y libsqlite3-dev libudunits2-dev libssl-dev libmagick++-dev libcurl4-openssl-dev
+RUN apt-get install -y libsqlite3-dev libudunits2-dev libssl-dev libmagick++-dev libcurl4-openssl-dev \
+  libprotobuf-dev protobuf-compiler libv8-dev libjq-dev
 RUN apt-get update&&apt-get install -y --no-install-recommends r-cran-reticulate
 
 # install R packages
-RUN R -e 'install.packages(c("IRkernel", "rgdal", "sp", "raster", "sf", "basemaps", "ggplot2", "mapview", "mapedit", "devtools", "usethis", "testthat", "roxygen2"))'
+RUN R -e 'install.packages(c("IRkernel", "rgdal", "sp", "raster", "sf", "basemaps", "ggplot2", "mapview", "mapedit", "devtools", "usethis", "testthat", "roxygen2", "geojsonio"))'
 RUN R -e 'install.packages(c("IRkernel"))'
 
 # initiliaze R kernel for Jupyter
