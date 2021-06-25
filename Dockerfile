@@ -8,6 +8,7 @@ ENV RPY2_CFFI_MODE=ABI
 
 # install required python libraries
 RUN mkdir -p /conf
+RUN pip3 install --upgrade pip
 COPY requirements.txt /conf/
   RUN env-build-tool new /conf/requirements.txt ${py_env_path} /wheels
 
@@ -83,7 +84,7 @@ RUN R -e 'install.packages(c("IRkernel"))'
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
 ## automatically link a shared volume for kitematic users
-VOLUME /home/rstudio/kitematic
+#VOLUME /home/rstudio/kitematic
 
 # set user and working dir
 USER jovyan
