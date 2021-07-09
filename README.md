@@ -1,4 +1,4 @@
-# `odc_box`
+# `eo2cube_box`
 
 This repository hosts all you need to install an *Open Data Cube* instance as a docker container that serves a Jupyter notebook environment running a `Python` kernel and an `R` kernel. It is original based on the [Cube-in-a-box](https://github.com/opendatacube/cube-in-a-box) repository. 
 
@@ -24,7 +24,7 @@ Make sure to have [`docker`](https://docs.docker.com/engine/install/ubuntu/#inst
 Clone this repository to a directory of your choice, e.g. using
 
 ```
-git clone https://github.com/16EAGLE/odc_box/
+git clone https://github.com/16EAGLE/eo2cube_box/
 ```
 
 and `cd` into its main directory. To start the container (and build it the first time), run:
@@ -49,7 +49,7 @@ To stop the container, from a shell other then the one the docker container is r
 ./docker_stop
 ```
 
-To fully clean your docker environment from images pulled for `odc_box` and to allow a fresh re-deploy, run
+To fully clean your docker environment from images pulled for `eo2cube_box` and to allow a fresh re-deploy, run
 
 ```
 ./docker_clean
@@ -66,7 +66,7 @@ Error message:
 
 ```
 ./docker_start
-#> ERROR: for postgres  Cannot start service postgres: driver failed programming external connectivity on endpoint odc_box_postgres_1 (...): Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use
+#> ERROR: for postgres  Cannot start service postgres: driver failed programming external connectivity on endpoint eo2cube_box_postgres_1 (...): Error starting userland proxy: listen tcp4 0.0.0.0:5432: bind: address already in use
 ```
 
 Reason: The default `postgres` port `5432` seems to be used by some service (maybe `postgres`?) running on your host system.
