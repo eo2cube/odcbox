@@ -1,13 +1,19 @@
 # `odc_box`
 
-This repository hosts all you need to install an *Open Data Cube* instance as a docker container that serves a Jupyter notebook environment running a Python kernel and an R kernel. It is based on the [Cube-in-a-box](https://github.com/opendatacube/cube-in-a-box) project. 
+This repository hosts all you need to install an *Open Data Cube* instance as a docker container that serves a Jupyter notebook environment running a `Python` kernel and an `R` kernel. It is original based on the [Cube-in-a-box](https://github.com/opendatacube/cube-in-a-box) repository. 
 
-## Additional features
+## What's installed?
 
-* an R kernel and its upstream dependencies, initialized to connect with the Jupyter environment,
-* a pre-installed suite of R packages for spatial analysis as well as there system requirements
+* environment requirements to run an *Open Data Cube* instance, including `postgis`, `GEOS`, `PROJ`, `KEA`, `LERC`, `GDAL`
+* a `Jupyter` notebook environment
+* `Python`, accessible as a kernel in `Jupyter`, and its upstream dependencies,
+* the *Open Data Cube* `datacube` library, associated libraries and their upstream dependencies,
+* `R` and its upstream dependencies, initialized to connect with the Jupyter environment as an additional kernel,
+* the *eo2cube* `odcr` `R` package, an `R` interface to the *Open Data Cube* libraries,
+* a pre-installed suite of `R` packages for spatial analysis as well as their system requirements, including `stars`, `raster`, `sf`, `sp`, `rgdal` and others,
 * helper scripts for quick starting, stopping and re-deploying of the container environment (see below),
-* a revised `README.md` with installation instructions
+* example `Jupyter` notebooks,
+* this `README.md` with installation instructions.
 
 See the commit history for all changes to the original repository.
 
