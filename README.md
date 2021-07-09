@@ -4,7 +4,7 @@ This repository hosts all you need to install an *Open Data Cube* instance as a 
 
 ## What's installed?
 
-* environment requirements to run an *Open Data Cube* instance, including `postgis`, `GEOS`, `PROJ`, `KEA`, `LERC`, `GDAL`
+* environment requirements to run an *Open Data Cube* instance, including `postgis`, `GEOS`, `PROJ`, `KEA`, `LERC`, `GDAL` etc.
 * a `Jupyter` notebook environment
 * `Python`, accessible as a kernel in `Jupyter`, and its upstream dependencies,
 * the *Open Data Cube* `datacube` library, associated libraries and their upstream dependencies,
