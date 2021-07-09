@@ -9,8 +9,9 @@ This repository hosts all you need to install an *Open Data Cube* instance as a 
 * `Python`, accessible as a kernel in `Jupyter`, and its upstream dependencies,
 * the *Open Data Cube* `datacube` library, associated libraries and their upstream dependencies,
 * `R` and its upstream dependencies, initialized to connect with the Jupyter environment as an additional kernel,
-* the *eo2cube* `odcr` `R` package, an `R` interface to the *Open Data Cube* libraries,
+* ~~the *eo2cube* `odcr` `R` package, an `R` interface to the *Open Data Cube* libraries,~~
 * a pre-installed suite of `R` packages for spatial analysis as well as their system requirements, including `stars`, `raster`, `sf`, `sp`, `rgdal` and others,
+* ~~`RStudio` server runing on port `8080`,~~
 * helper scripts for quick starting, stopping and re-deploying of the container environment (see below),
 * example `Jupyter` notebooks,
 * this `README.md` with installation instructions.
