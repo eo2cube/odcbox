@@ -20,3 +20,4 @@ notebooks/.python_history
 .Rproj.user
 *.Rproj
 .Rhistory
+.github.env
