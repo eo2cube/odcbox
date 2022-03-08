@@ -25,7 +25,7 @@ Make sure to have [`docker`](https://docs.docker.com/engine/install/ubuntu/#inst
 Clone this repository to a directory of your choice, e.g. using
 
 ```
-git clone https://github.com/16EAGLE/odcbox/
+git clone https://github.com/eo2cube/odcbox/
 ```
 
 and `cd` into its main directory. To start the container (and build it the first time), run:
